@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,11 +36,13 @@ public class Usuario {
 	private String resumo;
 	
 	@Getter @Setter
-	@OneToMany
+	@JsonManagedReference
+	@OneToMany(mappedBy="usuario")
     private List<Empresas> empresas;
 	
 	@Getter @Setter
-	@OneToMany
+	@JsonManagedReference
+	@OneToMany(mappedBy="usuario")
     private List<Habilidades> habilidades;
 	
 	@Getter @Setter
