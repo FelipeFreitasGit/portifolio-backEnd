@@ -20,40 +20,40 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private EmpresaRepository empresaRepository;
-	
+
 	@Autowired
 	private HabilidadeRepository habilidadeRepository;
 
 	Usuario user = new Usuario();
-	
+
 	public UsuarioDTO salvarUsuario(UsuarioDTO usuario) {
-		
+
 		user.setNome(usuario.getNome());
 		user.setCargo(usuario.getCargo());
 		user.setResumo(usuario.getResumo());
 		user.setFoto(usuario.getFoto());
 		user.setCurriculo(usuario.getCurriculo());
-		
+
 		usuarioRepository.save(user);
-		
+
 		for (EmpresasDTO businnes : usuario.getEmpresas()) {
-			
+
 			this.salvarEmpresa(businnes);
 		}
-		
+
 		for (HabilidadesDTO habilits : usuario.getHabilidades()) {
-			
+
 			this.salvarHabilidades(habilits);
 		}
-		
+
 		return usuario;
 	}
-	
+
 	public Empresas salvarEmpresa(EmpresasDTO businnes) {
-		
+
 		Empresas emp = new Empresas();
 		emp.setNome(businnes.getNome());
 		emp.setCargo(businnes.getCargo());
@@ -61,22 +61,27 @@ public class UsuarioService {
 		emp.setFim(businnes.getFim());
 		emp.setAtividades(businnes.getAtividades());
 		emp.setUsuario(user);
-		
-		return empresaRepository.save(emp);	
+
+		return empresaRepository.save(emp);
 	}
-	
+
 	public Habilidades salvarHabilidades(HabilidadesDTO habilits) {
-		
+
 		Habilidades skill = new Habilidades();
 		skill.setNome(habilits.getNome());
 		skill.setNivel(habilits.getNivel());
 		skill.setUsuario(user);
-		
+
 		return habilidadeRepository.save(skill);
 	}
-	
+
 	public List<Usuario> listarTodos() {
 		return usuarioRepository.findAll();
+	}
+
+	public void deletar(Long id) {
+
+		usuarioRepository.deleteById(id);
 	}
 
 }
