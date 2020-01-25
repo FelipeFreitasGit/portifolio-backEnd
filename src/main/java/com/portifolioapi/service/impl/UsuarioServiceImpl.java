@@ -112,8 +112,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 					emp.setAtividades(businnes.getAtividades());
 					emp.setUsuario(user);
 
-					empresaRepository.save(emp);
-					return ResponseEntity.ok();
+					return empresaRepository.save(emp);
 				});
 			}
 
@@ -125,8 +124,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 					skill.setNivel(habilits.getNivel());
 					skill.setUsuario(user);
 
-					habilidadeRepository.save(skill);
-					return ResponseEntity.ok();
+					return habilidadeRepository.save(skill);
 				});
 			}
 			
