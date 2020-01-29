@@ -21,7 +21,7 @@ import com.portifolioapi.model.UsuarioLogin;
 import com.portifolioapi.service.LoginService;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/userlogin")
 public class LoginController {
 	
 	@Autowired

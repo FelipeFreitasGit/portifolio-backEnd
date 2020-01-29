@@ -3,6 +3,7 @@ package com.portifolioapi.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.portifolioapi.DTO.UsuarioLoginDTO;
@@ -16,8 +17,8 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
 	
-//	@Autowired
-//	private BCryptPasswordEncoder bcrypt;
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 
 	@Override
 	public List<UsuarioLogin> listarTodos() {
@@ -26,11 +27,10 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public UsuarioLogin salvar(UsuarioLoginDTO usuarioLoginDTO) {
-		//usuarioLogin.setSenha(bcrypt.encode(usuarioLogin.getSenha()));
 		UsuarioLogin usuarioLogin = new UsuarioLogin();
 		
 		usuarioLogin.setUsuarioLogin(usuarioLoginDTO.getUsuarioLogin());
-		usuarioLogin.setSenha(usuarioLoginDTO.getSenha());
+		usuarioLogin.setSenha(bcrypt.encode(usuarioLoginDTO.getSenha()));
 
 		return loginRepository.save(usuarioLogin);
 	}
